@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "vite",
     "prebuild": "chmod +x ./node_modules/.bin/vite || true",
-    "build": "vite build",
+    "build": "NODE_OPTIONS=--max-old-space-size=4096 vite build --debug",
     "vercel-build": "NODE_OPTIONS=--max-old-space-size=4096 vite build --debug",
     "lint": "eslint .",
     "preview": "vite preview"
