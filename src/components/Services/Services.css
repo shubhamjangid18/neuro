@@ -1,0 +1,114 @@
+.services-section {
+  background: linear-gradient(180deg, var(--color-teal-100) 0%, #EFF9F8 100%);
+  border-radius: var(--radius);
+  position: relative;
+}
+
+.services-section .card-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 900px) {
+  .services-section .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .services-section .card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Premium hover treatment — scoped to Services cards only */
+.services-card {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-surface);
+}
+
+/* Faint number watermark, top-right corner */
+.services-card-index {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-family: var(--font-mono);
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: var(--color-border);
+  transition: color 0.35s ease, transform 0.35s ease;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.services-card:hover .services-card-index {
+  color: var(--color-teal-100);
+  transform: scale(1.1);
+}
+
+.services-card .card-icon,
+.services-card .card-title,
+.services-card .card-text {
+  position: relative;
+  z-index: 1;
+}
+
+/* Diagonal shine sweep across the whole card on hover */
+.services-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(47, 184, 172, 0.12), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.7s ease;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.services-card:hover::before {
+  left: 130%;
+}
+
+/* Arrow that slides in from the right on hover */
+.services-card-arrow {
+  position: absolute;
+  bottom: var(--space-md);
+  right: var(--space-md);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--color-teal-500);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateX(12px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  z-index: 1;
+}
+
+.services-card:hover .services-card-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Slightly stronger border glow than the default .card hover */
+.services-card:hover {
+  border-color: var(--color-teal-500);
+  box-shadow: 0 20px 48px rgba(47, 184, 172, 0.16);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .services-card::before {
+    transition: none;
+    display: none;
+  }
+  .services-card-arrow,
+  .services-card-index {
+    transition: none;
+  }
+}

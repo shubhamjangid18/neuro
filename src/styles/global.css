@@ -1,0 +1,182 @@
+html {
+  scroll-behavior: smooth;
+}
+
+.section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-md);
+}
+
+.section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-teal-600);
+  display: block;
+  margin-bottom: var(--space-xs);
+}
+
+.section-title {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  color: var(--color-navy-950);
+  max-width: 600px;
+  margin-bottom: var(--space-md);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-sm);
+}
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-md);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card);
+}
+
+.card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--color-teal-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-teal-600);
+  margin-bottom: var(--space-sm);
+}
+
+.card-title {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--color-navy-950);
+  margin-bottom: 8px;
+}
+
+.card-text {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--color-text-muted);
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: var(--space-lg) var(--space-sm);
+  }
+
+  .section-title {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+  }
+
+  .card-grid {
+    gap: var(--space-sm);
+  }
+
+  .card {
+    padding: var(--space-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    padding: var(--space-md) var(--space-sm);
+  }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Premium card hover — refined from the basic version */
+.card {
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+              border-color 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(10, 22, 40, 0.1);
+  border-color: var(--color-teal-500);
+}
+
+.card:hover .card-icon {
+  transform: scale(1.08) rotate(-4deg);
+  background: var(--color-teal-500);
+  color: white;
+}
+
+.card-icon {
+  transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+}
+
+/* ==========================================================================
+   STAGGERED CHILD REVEAL — cards/items appear one-by-one when their
+   parent section becomes visible, instead of all at once.
+   ========================================================================== */
+
+.card-grid .card,
+.treatment-steps .treatment-step,
+.testimonials-grid .testimonial-card {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal-visible .card-grid .card,
+.reveal-visible .treatment-steps .treatment-step,
+.reveal-visible .testimonials-grid .testimonial-card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger delay per item — each one waits slightly longer than the last */
+.reveal-visible .card-grid .card:nth-child(1),
+.reveal-visible .treatment-steps .treatment-step:nth-child(1),
+.reveal-visible .testimonials-grid .testimonial-card:nth-child(1) { transition-delay: 0.05s; }
+
+.reveal-visible .card-grid .card:nth-child(2),
+.reveal-visible .treatment-steps .treatment-step:nth-child(2),
+.reveal-visible .testimonials-grid .testimonial-card:nth-child(2) { transition-delay: 0.15s; }
+
+.reveal-visible .card-grid .card:nth-child(3),
+.reveal-visible .treatment-steps .treatment-step:nth-child(3),
+.reveal-visible .testimonials-grid .testimonial-card:nth-child(3) { transition-delay: 0.25s; }
+
+.reveal-visible .card-grid .card:nth-child(4),
+.reveal-visible .treatment-steps .treatment-step:nth-child(4) { transition-delay: 0.35s; }
+
+.reveal-visible .card-grid .card:nth-child(5),
+.reveal-visible .treatment-steps .treatment-step:nth-child(5) { transition-delay: 0.45s; }
+
+.reveal-visible .card-grid .card:nth-child(6) { transition-delay: 0.55s; }
+.reveal-visible .card-grid .card:nth-child(7) { transition-delay: 0.65s; }
+.reveal-visible .card-grid .card:nth-child(8) { transition-delay: 0.75s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .card-grid .card,
+  .treatment-steps .treatment-step,
+  .testimonials-grid .testimonial-card {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

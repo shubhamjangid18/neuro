@@ -1,0 +1,253 @@
+/* =========================================================
+   Testimonials — premium white / navy theme, matches
+   Conditions section styling language
+   ========================================================= */
+.testimonials-section {
+  --navy: #0b1e3d;
+  --navy-deep: #081527;
+  --ink: #10233f;
+  --steel: #8fa0b8;
+  --hairline: rgba(255, 255, 255, 0.1);
+  --white: #ffffff;
+
+  position: relative;
+  max-width: none;
+  margin: 0;
+  padding: clamp(72px, 9vw, 130px) clamp(20px, 5vw, 64px);
+  background: radial-gradient(circle at 15% 20%, rgba(111, 184, 255, 0.14), transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(111, 184, 255, 0.1), transparent 50%),
+    linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+  overflow: hidden;
+}
+
+.testimonials-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 26px 26px;
+  pointer-events: none;
+}
+
+.testimonials-section .section-eyebrow {
+  color: #6fb8ff;
+}
+
+.testimonials-section .section-title {
+  color: var(--white);
+  max-width: 620px;
+  position: relative;
+  z-index: 1;
+}
+
+.testimonials-section .section-eyebrow {
+  position: relative;
+  z-index: 1;
+}
+
+.testimonials-grid-premium {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 28px;
+  margin-top: var(--space-md, 32px);
+}
+
+/* =========================================================
+   Card
+   ========================================================= */
+@property --t-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.testimonial-card-premium {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 36px 30px 30px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #ffffff 0%, #fbfcfe 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 50px -18px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.04);
+
+  opacity: 0;
+  transform: translateY(28px);
+  transition: transform 480ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 480ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 700ms ease, transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.testimonials-section.is-visible .testimonial-card-premium {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: calc(var(--i, 0) * 130ms);
+}
+
+/* Rotating glow border ring, revealed on hover (same language as Conditions cards) */
+.testimonial-card-premium::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  z-index: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: conic-gradient(
+    from var(--t-angle),
+    transparent 0%,
+    var(--navy) 12%,
+    #6fb8ff 22%,
+    var(--navy) 32%,
+    transparent 46%,
+    transparent 100%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 420ms ease;
+  animation: t-angle-spin 5s linear infinite paused;
+  pointer-events: none;
+}
+
+@keyframes t-angle-spin {
+  to {
+    --t-angle: 360deg;
+  }
+}
+
+.testimonial-card-premium:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 28px 64px -16px rgba(0, 0, 0, 0.55), 0 0 32px rgba(111, 184, 255, 0.35);
+}
+
+.testimonial-card-premium:hover::before {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+/* Ambient glow behind the card on hover */
+.testimonial-glow {
+  position: absolute;
+  z-index: 0;
+  width: 60%;
+  height: 60%;
+  right: -10%;
+  bottom: -10%;
+  background: radial-gradient(circle, rgba(111, 184, 255, 0.16), transparent 70%);
+  opacity: 0;
+  transition: opacity 480ms ease;
+  pointer-events: none;
+}
+
+.testimonial-card-premium:hover .testimonial-glow {
+  opacity: 1;
+}
+
+/* =========================================================
+   Content
+   ========================================================= */
+.testimonial-quote-mark {
+  position: relative;
+  z-index: 1;
+  display: block;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 56px;
+  line-height: 1;
+  color: var(--navy);
+  opacity: 0.14;
+  margin-bottom: -6px;
+}
+
+.testimonial-stars {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 3px;
+  margin-bottom: 14px;
+}
+
+.testimonial-star {
+  width: 15px;
+  height: 15px;
+  fill: var(--navy);
+}
+
+.testimonial-quote {
+  position: relative;
+  z-index: 1;
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: var(--ink);
+  margin: 0 0 26px;
+  flex-grow: 1;
+}
+
+.testimonial-author {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-top: 18px;
+  border-top: 1px solid var(--hairline);
+}
+
+.testimonial-avatar {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-deep) 100%);
+  color: var(--white);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  box-shadow: 0 6px 16px rgba(11, 30, 61, 0.25);
+}
+
+.testimonial-author-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.testimonial-name {
+  font-weight: 600;
+  font-size: 14.5px;
+  color: var(--navy);
+}
+
+.testimonial-role {
+  font-size: 12.5px;
+  color: var(--steel);
+}
+
+/* =========================================================
+   Reduced motion
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  .testimonial-card-premium {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .testimonial-quote {
+    font-size: 14.5px;
+  }
+
+  .testimonial-card-premium {
+    padding: 28px 22px 24px;
+  }
+}

@@ -1,0 +1,32 @@
+/* ==========================================================================
+   1. IMPORTS
+   ========================================================================== */
+@import './styles/variables.css';
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600&family=Inter:wght@400;500;600&display=swap');
+
+/* ==========================================================================
+   2. RESET
+   ========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ==========================================================================
+   3. BASE TYPOGRAPHY
+   ========================================================================== */
+body {
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+}

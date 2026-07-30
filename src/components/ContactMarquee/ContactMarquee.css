@@ -1,0 +1,59 @@
+.contact-marquee {
+  width: 100%;
+  overflow: hidden;
+  background: var(--color-navy-950, #0a1a2f);
+  padding: 12px 0;
+  position: relative;
+}
+
+.contact-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marqueeScroll 25s linear infinite;
+}
+
+.contact-marquee:hover .contact-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marqueeScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.contact-marquee-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 32px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.contact-marquee-icon {
+  font-size: 1.1rem;
+  color: var(--color-teal-500, #2dd4bf);
+}
+
+.contact-marquee-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.contact-marquee-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.contact-marquee-value {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff;
+}

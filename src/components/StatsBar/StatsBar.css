@@ -1,0 +1,152 @@
+.stats-bar {
+  background: var(--color-surface);
+  padding: var(--space-lg) var(--space-md);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.stats-bar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stats-item {
+  position: relative;
+  flex: 1;
+  text-align: left;
+  padding: var(--space-sm) var(--space-md);
+  border-right: 1px solid var(--color-border);
+  cursor: default;
+  border-radius: var(--radius);
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+              background 0.35s ease;
+  overflow: hidden;
+}
+
+.stats-item:first-child {
+  padding-left: 0;
+}
+
+.stats-item:last-child {
+  border-right: none;
+}
+
+.stats-item:hover {
+  transform: translateY(-6px);
+  background: var(--color-teal-100);
+}
+
+/* Small accent dot that pulses in on hover, top-left of each card */
+.stats-accent-dot {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-teal-500);
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.stats-item:hover .stats-accent-dot {
+  opacity: 1;
+  transform: scale(1);
+  animation: dotPulse 1.6s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(47, 184, 172, 0.5); }
+  50% { box-shadow: 0 0 0 6px rgba(47, 184, 172, 0); }
+}
+
+.stats-number {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 600;
+  color: var(--color-navy-950);
+  margin-bottom: 4px;
+  transition: color 0.35s ease, transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  display: inline-block;
+}
+
+.stats-item:hover .stats-number {
+  color: var(--color-teal-600);
+  transform: scale(1.08);
+}
+
+.stats-label {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  transition: color 0.3s ease;
+}
+
+.stats-item:hover .stats-label {
+  color: var(--color-navy-950);
+}
+
+/* Sliding underline that grows from left to right on hover */
+.stats-underline {
+  position: absolute;
+  bottom: 0;
+  left: var(--space-md);
+  right: var(--space-md);
+  height: 2px;
+  background: var(--color-teal-500);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.stats-item:hover .stats-underline {
+  transform: scaleX(1);
+}
+
+@media (max-width: 768px) {
+  .stats-bar-inner {
+    flex-wrap: wrap;
+    gap: var(--space-md);
+  }
+
+  .stats-item {
+    flex: 1 1 40%;
+    border-right: none;
+  }
+
+  .stats-item:nth-child(odd) {
+    border-right: 1px solid var(--color-border);
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-item {
+    flex: 1 1 100%;
+    border-right: none !important;
+    text-align: center;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .stats-item:last-child {
+    border-bottom: none;
+  }
+
+  .stats-underline {
+    left: 30%;
+    right: 30%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stats-item,
+  .stats-number,
+  .stats-accent-dot,
+  .stats-underline {
+    transition: none;
+    animation: none;
+  }
+}

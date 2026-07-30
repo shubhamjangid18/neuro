@@ -1,0 +1,126 @@
+.treatment-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.treatment-step {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-sm);
+  border-bottom: 1px solid var(--color-border);
+  overflow: hidden;
+  cursor: default;
+  transition: padding-left 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.treatment-step:last-child {
+  border-bottom: none;
+}
+
+.treatment-step:hover {
+  padding-left: calc(var(--space-sm) + 12px);
+}
+
+/* Sliding background tint that grows from left on hover */
+.treatment-step-bg {
+  position: absolute;
+  inset: 0;
+  background: var(--color-teal-100);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  z-index: 0;
+}
+
+.treatment-step:hover .treatment-step-bg {
+  transform: scaleX(1);
+}
+
+.treatment-number {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-mono);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--color-teal-500);
+  min-width: 60px;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.35s ease;
+}
+
+.treatment-step:hover .treatment-number {
+  transform: scale(1.15);
+  color: var(--color-teal-600);
+}
+
+.treatment-step-content {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+}
+
+.treatment-step-title {
+  font-size: 1.15rem;
+  color: var(--color-navy-950);
+  margin-bottom: 6px;
+  transition: transform 0.3s ease;
+}
+
+.treatment-step:hover .treatment-step-title {
+  transform: translateX(4px);
+}
+
+.treatment-step-text {
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  max-width: 560px;
+  transition: color 0.3s ease;
+}
+
+.treatment-step:hover .treatment-step-text {
+  color: var(--color-text);
+}
+
+/* Circular arrow, hidden until hover, slides in from the right */
+.treatment-step-arrow {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--color-teal-500);
+  color: white;
+  flex-shrink: 0;
+  opacity: 0;
+  transform: translateX(16px) rotate(-45deg);
+  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.treatment-step:hover .treatment-step-arrow {
+  opacity: 1;
+  transform: translateX(0) rotate(0deg);
+}
+
+@media (max-width: 640px) {
+  .treatment-step-arrow {
+    display: none;
+  }
+  .treatment-step:hover {
+    padding-left: var(--space-sm);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .treatment-step,
+  .treatment-step-bg,
+  .treatment-number,
+  .treatment-step-title,
+  .treatment-step-arrow {
+    transition: none;
+  }
+}

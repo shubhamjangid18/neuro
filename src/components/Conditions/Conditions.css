@@ -1,0 +1,235 @@
+/* =========================================================
+   Conditions Section — premium white / navy, single-row
+   manual horizontal scroll, no visible scrollbar
+   ========================================================= */
+.conditions {
+  --navy: #0b1e3d;
+  --navy-deep: #081527;
+  --ink: #10233f;
+  --steel: #5b6b82;
+  --hairline: #e3e7ee;
+  --white: #ffffff;
+
+  background: var(--white);
+  color: var(--ink);
+  padding: clamp(64px, 8vw, 120px) 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
+    sans-serif;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+.conditions__inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 5vw, 64px);
+}
+
+.conditions__eyebrow {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--steel);
+}
+
+.conditions__heading {
+  margin: 0;
+  font-size: clamp(32px, 4.5vw, 48px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--navy);
+}
+
+.conditions__rule {
+  width: 64px;
+  height: 3px;
+  margin: 22px 0 8px;
+  background: var(--navy);
+  border-radius: 2px;
+  transform-origin: left;
+  animation: rule-grow 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes rule-grow {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+/* =========================================================
+   Scroll container — manual drag/swipe, scrollbar hidden
+   ========================================================= */
+.conditions-scroll {
+  width: 100%;
+  margin-top: 48px;
+  padding: 0 clamp(20px, 5vw, 64px);
+
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+
+  /* hide native scrollbar, cross-browser */
+  scrollbar-width: none;       /* Firefox */
+  -ms-overflow-style: none;    /* old Edge / IE */
+}
+
+.conditions-scroll::-webkit-scrollbar {
+  display: none;                /* Chrome / Safari / new Edge */
+}
+
+.conditions-scroll-track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  padding: 4px 4px 24px;
+}
+
+/* =========================================================
+   Card — snap target + premium hover glow
+   ========================================================= */
+@property --angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.condition-card {
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  width: clamp(190px, 16vw, 240px);
+  padding: 28px 20px 24px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #ffffff 0%, #fbfcfe 100%);
+  border: 1px solid var(--hairline);
+  box-shadow: 0 1px 2px rgba(11, 30, 61, 0.04), 0 12px 32px -18px rgba(11, 30, 61, 0.12);
+  transition: transform 480ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 480ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.conditions-scroll-track {
+  scroll-snap-type: x proximity;
+}
+
+/* Rotating conic-gradient ring, masked down to a thin glowing border */
+.condition-card::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  z-index: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: conic-gradient(
+    from var(--angle),
+    transparent 0%,
+    var(--navy) 12%,
+    #6fb8ff 22%,
+    var(--navy) 32%,
+    transparent 46%,
+    transparent 100%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 420ms ease;
+  animation: angle-spin 4.5s linear infinite paused;
+  pointer-events: none;
+}
+
+@keyframes angle-spin {
+  to {
+    --angle: 360deg;
+  }
+}
+
+/* Diagonal shine sweep, hidden until hover */
+.condition-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(
+    115deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.55) 50%,
+    transparent 60%
+  );
+  transform: translateX(-120%);
+  pointer-events: none;
+}
+
+.condition-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 28px 56px -20px rgba(11, 30, 61, 0.35), 0 0 24px rgba(111, 184, 255, 0.25);
+}
+
+.condition-card:hover::before {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+.condition-card:hover::after {
+  transform: translateX(120%);
+  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.condition-card__accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--navy) 0%, var(--navy-deep) 100%);
+}
+
+.condition-card__number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  margin-bottom: 16px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.condition-card__title {
+  margin: 0 0 10px;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--navy);
+  letter-spacing: -0.005em;
+}
+
+.condition-card__desc {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--steel);
+}
+
+/* =========================================================
+   Reduced motion
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  .conditions__rule,
+  .condition-card {
+    animation: none !important;
+    transition: none !important;
+  }
+}

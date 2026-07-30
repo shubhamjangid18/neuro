@@ -1,0 +1,365 @@
+/* =========================================================
+   Navbar — floating rounded pill, dark navy theme
+   ========================================================= */
+.navbar-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 18px clamp(16px, 4vw, 32px) 0;
+  background: var(--color-navy-950);
+  animation: navbar-drop-in 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes navbar-drop-in {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.navbar-floating {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  min-height: 78px;
+  padding: 8px 14px 8px 20px;
+  border-radius: 999px;
+
+  background: linear-gradient(160deg, #0b1e3d 0%, #081527 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 18px 44px -14px rgba(6, 14, 28, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+  transition: box-shadow 0.35s ease, transform 0.35s ease;
+}
+
+/* Twinkling star-dot texture, like the reference background */
+.navbar-floating::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(1px 1px at 10% 30%, rgba(255, 255, 255, 0.35), transparent 60%),
+    radial-gradient(1px 1px at 25% 70%, rgba(255, 255, 255, 0.25), transparent 60%),
+    radial-gradient(1.5px 1.5px at 45% 20%, rgba(255, 255, 255, 0.3), transparent 60%),
+    radial-gradient(1px 1px at 65% 65%, rgba(255, 255, 255, 0.2), transparent 60%),
+    radial-gradient(1.5px 1.5px at 82% 35%, rgba(255, 255, 255, 0.3), transparent 60%),
+    radial-gradient(1px 1px at 92% 75%, rgba(255, 255, 255, 0.22), transparent 60%);
+  animation: navbar-twinkle 4s ease-in-out infinite;
+}
+
+@keyframes navbar-twinkle {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+.navbar-wrap-scrolled .navbar-floating {
+  box-shadow: 0 22px 50px -12px rgba(6, 14, 28, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transform: translateY(1px) scale(0.99);
+}
+
+/* =========================================================
+   Logo — bigger, with subtle glow + float animation
+   ========================================================= */
+.navbar-logo {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  transition: transform 0.35s ease;
+}
+
+.navbar-logo:hover {
+  transform: scale(1.06);
+}
+
+.navbar-logo-icon {
+  width: 180px;
+  height: 80px;
+  object-fit: contain;
+  filter: brightness(0) invert(1) drop-shadow(0 0 0 rgba(34, 211, 238, 0));
+  transition: transform 0.5s ease, filter 0.5s ease;
+  animation: logoFloat 4.5s ease-in-out infinite;
+}
+
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.navbar-logo:hover .navbar-logo-icon {
+  transform: scale(1.08);
+  filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(34, 211, 238, 0.55));
+}
+
+.logo-clicked {
+  animation: logoPulse 0.6s ease;
+}
+
+@keyframes logoPulse {
+  0% { transform: scale(1) rotate(0deg); }
+  30% { transform: scale(1.15) rotate(-8deg); }
+  60% { transform: scale(0.95) rotate(8deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navbar-logo-icon {
+    animation: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .navbar-logo-icon {
+    width: 120px;
+    height: 54px;
+  }
+}
+
+/* =========================================================
+   Pill nav links — inner track, active/hover = white pill
+   ========================================================= */
+.navbar-pill {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  padding: 5px;
+}
+
+.navbar-pill a {
+  position: relative;
+  color: rgba(255, 255, 255, 0.68);
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 500;
+  padding: 9px 16px;
+  border-radius: 999px;
+  white-space: nowrap;
+  transition: color 0.3s ease;
+}
+
+.navbar-pill a span {
+  position: relative;
+  z-index: 1;
+}
+
+.navbar-pill a::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: #858282;
+  transform: scale(0.7);
+  opacity: 0;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease;
+  z-index: 0;
+}
+
+.navbar-pill a:hover::before {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.navbar-pill a:hover {
+  color: #0b1e3d;
+}
+
+@media (max-width: 1024px) {
+  .navbar-pill {
+    display: none;
+  }
+}
+
+/* =========================================================
+   CTA — flashy cyan glowing pill button
+   ========================================================= */
+.navbar-cta {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #22d3ee 0%, #06b6d4 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 11px 22px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.88rem;
+  font-family: var(--font-body);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.25s ease, box-shadow 0.3s ease, background 0.3s ease;
+  box-shadow: 0 0 18px rgba(34, 211, 238, 0.7),
+              0 8px 20px rgba(0, 0, 0, 0.3),
+              inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  animation: navbar-cta-glow 2.4s ease-in-out infinite;
+}
+
+@keyframes navbar-cta-glow {
+  0%, 100% {
+    box-shadow: 0 0 18px rgba(34, 211, 238, 0.7),
+                0 8px 20px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(34, 211, 238, 1),
+                0 8px 24px rgba(0, 0, 0, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  }
+}
+
+.navbar-cta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.6s ease;
+}
+
+.navbar-cta:hover::before {
+  left: 125%;
+}
+
+.navbar-cta:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 0 34px rgba(34, 211, 238, 1), 0 12px 26px rgba(0, 0, 0, 0.4);
+}
+
+.navbar-cta:active {
+  transform: translateY(0) scale(0.98);
+}
+
+@media (max-width: 1024px) {
+  .navbar-cta {
+    display: none;
+  }
+}
+
+/* =========================================================
+   Mobile hamburger toggle
+   ========================================================= */
+.navbar-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+.navbar-toggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.navbar-toggle-open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.navbar-toggle-open span:nth-child(2) {
+  opacity: 0;
+}
+.navbar-toggle-open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+@media (max-width: 1024px) {
+  .navbar-toggle {
+    display: flex;
+  }
+}
+
+/* =========================================================
+   Mobile dropdown — glassy dark panel, staggered fade-in
+   ========================================================= */
+.navbar-mobile-links {
+  max-width: 1100px;
+  margin: 8px auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 clamp(4px, 1vw, 8px);
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+}
+
+.navbar-mobile-links-open {
+  max-height: 420px;
+  opacity: 1;
+}
+
+.navbar-mobile-links a {
+  color: #10233f;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 13px 20px;
+  border-radius: 14px;
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+}
+
+.navbar-cta-mobile {
+  margin-top: 4px;
+  background: linear-gradient(135deg, #22d3ee 0%, #06b6d4 100%);
+  color: #fff;
+  border: none;
+  padding: 14px 20px;
+  border-radius: 14px;
+  font-weight: 600;
+  font-family: var(--font-body);
+  cursor: pointer;
+  text-align: center;
+  box-shadow: 0 0 18px rgba(34, 211, 238, 0.7);
+}
+
+.navbar-cta-mobile:active {
+  transform: scale(0.98);
+}
+
+/* =========================================================
+   Reduced motion
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  .navbar-wrap,
+  .navbar-floating::before,
+  .navbar-logo,
+  .navbar-logo-icon,
+  .navbar-pill a::before,
+  .navbar-cta,
+  .navbar-cta::before {
+    animation: none !important;
+    transition: none !important;
+  }
+}
